@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Update Student Information</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Renders the form fields -->
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+    <a href="{% url 'index' %}">Cancel</a> <!-- Link back to the index or previous page -->
+</div>
+{% endblock %}

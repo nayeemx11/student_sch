@@ -1,0 +1,156 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Committee Dashboard</title>
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Scholarship Committee Dashboard</h1>
+        </header>
+
+        <section id="messages">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </section>
+
+        <section class="eligible-students">
+            <h2>Eligible Students</h2>
+
+            {% if student_eligible %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>GPA</th>
+                            <th>Credit Hours</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for app in student_eligible %}
+                            <tr>
+                                <td>{{ app.student.user.first_name }} {{ app.student.user.last_name }}</td>
+                                <td>{{ app.student.cumulative_gpa }}</td>
+                                <td>{{ app.student.credit_hours }}</td>
+                                <td>{{ app.student.current_status }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No eligible students found.</p>
+            {% endif %}
+        </section>
+
+        <section class="scholarship-award">
+            <h2>Scholarship Awarded</h2>
+
+            {% if student_gets_scholarship %}
+                <div class="winner">
+                    <h3>Winner: {{ student_gets_scholarship.user.first_name }} {{ student_gets_scholarship.user.last_name }}</h3>
+                    <p>Congratulations to {{ student_gets_scholarship.user.first_name }} for receiving the scholarship!</p>
+                </div>
+            {% else %}
+                <p>No scholarship has been awarded yet.</p>
+            {% endif %}
+        </section>
+
+        <footer>
+            <a href="{% url 'committee_dashboard' %}" class="btn">Back to Dashboard</a>
+        </footer>
+    </div>
+</body>
+</html> {% endcomment %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Committee Dashboard</title>
+    <!-- Add a link to a CSS framework like Bootstrap for quick styling (optional) -->
+</head>
+<body>
+    <div class="container mt-4">
+        <header>
+            <h1 class="mb-4">Scholarship Committee Dashboard</h1>
+        </header>
+
+        <!-- Display any messages like success or error notifications -->
+        <section id="messages">
+            {% if messages %}
+                <ul class="messages list-unstyled">
+                    {% for message in messages %}
+                        <li class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </section>
+
+        <!-- Section showing eligible students -->
+        <section class="eligible-students mt-4">
+            <h2>Eligible Students</h2>
+            {% if student_eligible and student_eligible|length > 0 %}
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Student Name</th>
+                            <th>GPA</th>
+                            <th>Credit Hours</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for app in student_eligible %}
+                            <tr>
+                                <td>{{ app.student.user.first_name }} {{ app.student.user.last_name }}</td>
+                                <td>{{ app.student.cumulative_gpa }}</td>
+                                <td>{{ app.student.credit_hours }}</td>
+                                <td>{{ app.student.current_status }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No eligible students found.</p>
+            {% endif %}
+        </section>
+
+        <!-- Section showing the student who won the scholarship -->
+        <section class="scholarship-award mt-5">
+            <h2>Scholarship Awarded</h2>
+
+            {% if student_gets_scholarship %}
+                <div class="winner alert alert-success">
+                    <h3>Winner: {{ student_gets_scholarship.user.first_name }} {{ student_gets_scholarship.user.last_name }}</h3>
+                    <p>Congratulations to {{ student_gets_scholarship.user.first_name }} for receiving the scholarship!</p>
+                </div>
+            {% else %}
+                <p>No scholarship has been awarded yet.</p>
+            {% endif %}
+        </section>
+
+        <footer class="mt-5">
+            <a href="{% url 'committee_dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+            <hr>
+            <a href="{% url 'award_scholarship' %}" class="btn btn-primary">award_scholarship</a>
+            <hr>
+
+        </footer>
+    </div>
+
+
+</body>
+</html>

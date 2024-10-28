@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title_section %}Default Title{% endblock title_section %}</title>
+</head>
+<body>
+    <a href="{% url 'signup' %}">Signup</a>
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'logout' %}">Logout</a>
+    <a href="{% url 'index' %}">Home</a>
+    <a href="{% url 'update_student_info' %}">update_student_info</a>
+    
+    <a href="{% url 'verify_student' %}"> visit first verify_student</a> 
+
+    <a href="{% url 'committee_dashboard' %}">committee_dashboard</a>
+    
+    <a href="{% url 'award_scholarship' %}">award_scholarship</a>
+    <a href="{% url 'send_mail_to_awarded_student' %}">send_mail_to_awarded_student</a>
+    <a href="{% url 'notify_other_eligible_applicants' %}">notify_other_eligible_applicants</a>
+
+    {% comment %} <a href="{% url '' %}"></a>  {% endcomment %}
+
+    
+    {% block content %}
+    <!-- Default content can go here -->
+    {% endblock content %}
+</body>
+</html>

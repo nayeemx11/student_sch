@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Application Verification</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Application Verification</h2>
+
+        <!-- Display success or error messages -->
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Student Info -->
+        <div class="student-info">
+            <p><strong>Student ID:</strong> {{ student.student_identity_number }}</p>
+            <p><strong>Current Status:</strong> {{ student.current_status }}</p>
+            <p><strong>Cumulative GPA:</strong> {{ student.cumulative_gpa }}</p>
+            <p><strong>Credit Hours:</strong> {{ student.credit_hours }}</p>
+            <p><strong>Eligibile:</strong> {{ student.eligible_for_application }}</p>
+        </div>
+
+        <!-- Form to update student data -->
+        <form method="post" action="{% url 'verify_student' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Verify</button>
+        </form>
+
+        <hr>
+
+        <form method="post" action="{% url 'apply_scholarship' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Apply</button>
+        </form>
+    </div>
+</body>
+</html>
